@@ -1,5 +1,6 @@
 import "./App.css";
 import chef from "./images/chef.jpg";
+import * as React from "react";
 
 function Header({ name, year }) {
   return (
@@ -13,12 +14,12 @@ const items = [
   "Macaroni and Cheese",
   "Salmon with Potatoes",
   "Tofu with Vegetables",
-  "Minestrone Soup"
+  "Minestrone Soup",
 ];
 
 const dishObjects = items.map((dish, i) => ({
   id: i,
-  title: dish
+  title: dish,
 }));
 
 function Main({ dishes }) {
@@ -28,17 +29,10 @@ function Main({ dishes }) {
         <h2>Welcome to this beautiful restaurant!</h2>
       </div>
       <main>
-        <img
-          src={chef}
-          height={200}
-          alt="A photo of a smiling chef owner"
-        />
+        <img src={chef} height={200} alt="A photo of a smiling chef owner" />
         <ul>
           {dishes.map((dish) => (
-            <li
-              key={dish.id}
-              style={{ listStyleType: "none" }}
-            >
+            <li key={dish.id} style={{ listStyleType: "none" }}>
               {dish.title}
             </li>
           ))}
@@ -49,8 +43,12 @@ function Main({ dishes }) {
 }
 
 function App() {
+  const [status, setStatus] = React.useState("Open");
+
   return (
     <div>
+      <h1>The restaurant is currently {status}</h1>
+      <button onClick={() => setStatus("Closed")}>Close the restaurant</button>
       <Header name="Alex" year={new Date().getFullYear()} />
       <Main dishes={dishObjects} />
     </div>
