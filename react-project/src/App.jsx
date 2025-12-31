@@ -48,6 +48,9 @@ function Main({ dishes, openStatus, onStatus }) {
 function App() {
   // const [status, setStatus] = React.useState(true);
   const [status, toggle] = React.useReducer((status) => !status, true);
+  React.useEffect(() => {
+    console.log(`The restaurant is now ${status ? "open" : "closed"}.`);
+  }, [status])
 
   return (
     <div>
