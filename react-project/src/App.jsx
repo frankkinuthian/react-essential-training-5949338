@@ -14,32 +14,29 @@ const items = [
   "Macaroni and Cheese",
   "Salmon with Potatoes",
   "Tofu with Vegetables",
-  "Minestrone Soup"
+  "Minestrone Soup",
 ];
 
 const dishObjects = items.map((dish, i) => ({
   id: i,
-  title: dish
+  title: dish,
 }));
 
-function Main({ dishes }) {
+function Main({ dishes, openStatus, onStatus }) {
   return (
     <>
       <div>
-        <h2>Welcome to this beautiful restaurant!</h2>
+        <button onClick={() => onStatus(true)}>I want to be open</button>
+        <h2>
+          Welcome to this beautiful restaurant! The restaurant is currently{" "}
+          {openStatus ? "open" : "closed"}.
+        </h2>
       </div>
       <main>
-        <img
-          src={chef}
-          height={200}
-          alt="A photo of a smiling chef owner"
-        />
+        <img src={chef} height={200} alt="A photo of a smiling chef owner" />
         <ul>
           {dishes.map((dish) => (
-            <li
-              key={dish.id}
-              style={{ listStyleType: "none" }}
-            >
+            <li key={dish.id} style={{ listStyleType: "none" }}>
               {dish.title}
             </li>
           ))}
@@ -54,15 +51,12 @@ function App() {
 
   return (
     <div>
-      <h1>
-        The restaurant is currently{" "}
-        {status ? "open" : "closed"}.
-      </h1>
+      <h1>The restaurant is currently {status ? "open" : "closed"}.</h1>
       <button onClick={() => setStatus(!status)}>
         {status ? "Close" : "Open"} Restaurant
       </button>
       <Header name="Alex" year={new Date().getFullYear()} />
-      <Main dishes={dishObjects} />
+      <Main dishes={dishObjects} openStatus={status} onStatus={setStatus} />
     </div>
   );
 }
